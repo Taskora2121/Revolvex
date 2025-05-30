@@ -234,10 +234,10 @@ const ContactSection = () => {
                         Email Us
                       </h4>
                       <p className="text-cream/70 font-inter text-xs sm:text-sm md:text-base">
-                        hello@Revolvex.agency
+                        hello@Klyro.agency
                       </p>
                       <p className="text-cream/70 font-inter text-xs sm:text-sm md:text-base">
-                        projects@Revolvex.agency
+                        projects@Klyro.agency
                       </p>
                     </div>
                   </div>

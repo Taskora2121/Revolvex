@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import KlyroLogo from "../../public/images/klyroLogo.png";
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -147,12 +147,16 @@ const Navbar = () => {
           <div className="flex justify-between items-center h-16 md:h-20">
             {/* Logo */}
             <motion.div
-              className="flex-shrink-0"
+              className="flex flex-row justify-center items-center gap-4"
               variants={logoVariants}
               animate={isSidebarOpen ? "open" : "closed"}>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold bg-gradient-gold bg-clip-text text-transparent">
-                Revolvex
-              </h1>
+              <div className="bg-white rounded-full">
+                <img src={KlyroLogo} alt="klyro logo" className="w-12" />
+              </div>
+
+              <span className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold text-white">
+                Klyro
+              </span>
             </motion.div>
 
             {/* Desktop Navigation */}
@@ -218,7 +222,7 @@ const Navbar = () => {
 
             {/* Sidebar */}
             <motion.div
-              className="fixed top-0 left-0 h-full w-80 bg-transparent backdrop-blur-sm border-r border-gold/30 z-50 md:hidden"
+              className="fixed top-0 left-0 h-full w-80 bg-navy backdrop-blur-sm border-r border-gold/30 z-50 md:hidden"
               variants={sidebarVariants}
               initial="closed"
               animate="open"
@@ -226,11 +230,14 @@ const Navbar = () => {
               {/* Sidebar Header */}
               <div className="flex items-center justify-between p-6 border-b border-gold/20">
                 <motion.h2
-                  className="text-2xl sm:text-3xl font-playfair font-bold bg-gradient-gold bg-clip-text text-transparent"
+                  className="text-white flex justify-center items-center gap-2 text-2xl font-playfair font-bold"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}>
-                  Revolvex
+                  <div className="bg-white rounded-full">
+                    <img src={KlyroLogo} alt="klyro logo" className="w-12" />
+                  </div>
+                  <span>Klyro</span>
                 </motion.h2>
                 <motion.button
                   onClick={() => setIsSidebarOpen(false)}

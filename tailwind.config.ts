@@ -65,7 +65,7 @@ export default {
         // Luxury brand colors
         charcoal: "#0C0C0C",
         navy: "#1E1E2F",
-        gold: "#C6A969",
+        gold: "#38BDF8",
         cream: "#F8FAFC",
         purple: "#A855F7",
         emerald: "#10B981",
@@ -81,7 +81,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       backgroundImage: {
-        "gradient-gold": "linear-gradient(135deg, #C6A969 0%, #F4E09C 100%)",
+        "gradient-gold": "linear-gradient(135deg, #38BDF8 0%, #7DD3FC 100%)",
         "gradient-purple": "linear-gradient(135deg, #A855F7 0%, #C084FC 100%)",
         "gradient-dark": "linear-gradient(135deg, #0C0C0C 0%, #1E1E2F 100%)",
       },
@@ -121,8 +121,9 @@ export default {
           "50%": { transform: "translateY(-20px)" },
         },
         pulseGlow: {
-          "0%, 100%": { boxShadow: "0 0 20px rgba(198, 169, 105, 0.4)" },
-          "50%": { boxShadow: "0 0 40px rgba(198, 169, 105, 0.8)" },
+          // 💬 updated glow color to match sky color tones
+          "0%, 100%": { boxShadow: "0 0 20px rgba(56, 189, 248, 0.4)" },
+          "50%": { boxShadow: "0 0 40px rgba(56, 189, 248, 0.8)" },
         },
         slideUp: {
           "0%": { transform: "translateY(100px)", opacity: "0" },

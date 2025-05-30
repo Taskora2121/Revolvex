@@ -55,7 +55,7 @@ const Footer = () => {
             {/* Brand Section */}
             <div className="lg:col-span-2">
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold bg-gradient-gold bg-clip-text text-transparent mb-4">
-                Revolvex
+                Klyro
               </h3>
               <p className="text-sm sm:text-base md:text-lg lg:text-xl text-cream/70 font-inter leading-relaxed mb-6 max-w-md">
                 Crafting future-proof digital experiences that transform
@@ -144,7 +144,7 @@ const Footer = () => {
         <div className="py-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-cream/50 font-inter text-xs sm:text-sm md:text-base">
-              <span>© 2024 Revolvex Agency. All rights reserved.</span>
+              <span>© 2024 Klyro Agency. All rights reserved.</span>
               <div className="flex space-x-4">
                 <a
                   href="#"

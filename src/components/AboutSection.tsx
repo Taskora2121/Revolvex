@@ -121,7 +121,7 @@ const AboutSection = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-playfair font-bold text-cream mb-3 sm:mb-4 md:mb-6 leading-tight">
               Why Choose
               <span className="block md:h-20 bg-gradient-gold bg-clip-text text-transparent">
-                Revolvex?
+                Klyro?
               </span>
             </h2>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-cream/80 mb-4 sm:mb-6 md:mb-8 max-w-3xl mx-auto font-inter leading-relaxed px-2">

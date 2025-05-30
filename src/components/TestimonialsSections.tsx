@@ -38,7 +38,7 @@ const TestimonialsSection = () => {
       image:
         "https://images.unsplash.com/photo-1583604898860-306cd52731d1?auto=format&fit=crop&w=150&q=80",
       content:
-        "Revolvex transformed our entire digital presence. Their attention to detail and innovative approach resulted in a 400% increase in online conversions. Simply outstanding!",
+        "Klyro transformed our entire digital presence. Their attention to detail and innovative approach resulted in a 400% increase in online conversions. Simply outstanding!",
       rating: 5,
     },
     {
@@ -48,7 +48,7 @@ const TestimonialsSection = () => {
       image:
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
       content:
-        "Working with Revolvex was a game-changer. They delivered a complex AI automation system ahead of schedule and under budget. Their technical expertise is unmatched.",
+        "Working with Klyro was a game-changer. They delivered a complex AI automation system ahead of schedule and under budget. Their technical expertise is unmatched.",
       rating: 5,
     },
     {
@@ -68,7 +68,7 @@ const TestimonialsSection = () => {
       image:
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80",
       content:
-        "Revolvex doesn't just build websites, they craft digital experiences. Their blockchain solution revolutionized our business model and opened new revenue streams.",
+        "Klyro doesn't just build websites, they craft digital experiences. Their blockchain solution revolutionized our business model and opened new revenue streams.",
       rating: 5,
     },
     {
