@@ -8,9 +8,11 @@ import {
   Twitter,
   Instagram,
 } from "lucide-react";
+
 const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+
 const ContactSection = () => {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -76,6 +78,17 @@ const ContactSection = () => {
     e.preventDefault();
     setIsLoading(true);
     setSubmitStatus(null);
+
+    // Validate required fields
+    if (
+      !formData.name.trim() ||
+      !formData.email.trim() ||
+      !formData.message.trim()
+    ) {
+      setSubmitStatus("validation-error");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       // Wait for EmailJS to be loaded if it's not ready yet
@@ -172,6 +185,15 @@ const ContactSection = () => {
                   <p className="text-red-400 text-sm">
                     ❌ Failed to send message. Please try again or contact us
                     directly.
+                  </p>
+                </div>
+              )}
+
+              {submitStatus === "validation-error" && (
+                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+                  <p className="text-red-400 text-sm">
+                    ❌ Please fill in all required fields (Full Name, Email, and
+                    Project Details).
                   </p>
                 </div>
               )}
@@ -358,7 +380,7 @@ const ContactSection = () => {
                         +918957089392
                       </p>
                       <p className="text-cream/60 font-inter text-xs sm:text-sm md:text-base">
-                        Mon-Fri, 9 AM - 6 PM EST
+                        Mon-Fri, 9 AM - 6 PM IST
                       </p>
                     </div>
                   </div>
