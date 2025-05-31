@@ -345,7 +345,7 @@ const ContactSection = () => {
             className={`transition-all duration-1000 delay-500 ${
               isVisible ? "animate-fade-in-right" : "opacity-0"
             }`}>
-            <div className="space-y-8">
+            <div className="space-y-7">
               {/* Contact Cards */}
               <div className="space-y-6">
                 <div className="bg-charcoal/50 backdrop-blur-sm rounded-2xl p-6 border border-gold/20 hover:border-gold/40 transition-all duration-300 group">
