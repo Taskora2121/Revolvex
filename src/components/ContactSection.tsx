@@ -1,9 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
-
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Linkedin,
+  Twitter,
+  Instagram,
+} from "lucide-react";
+const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const ContactSection = () => {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,6 +42,24 @@ const ContactSection = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Load EmailJS script on component mount
+  useEffect(() => {
+    const loadEmailJS = () => {
+      if (!window.emailjs) {
+        const script = document.createElement("script");
+        script.src =
+          "https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js";
+        script.async = true;
+        script.onload = () => {
+          window.emailjs.init(publicKey); // Replace with your actual EmailJS public key
+        };
+        document.head.appendChild(script);
+      }
+    };
+
+    loadEmailJS();
+  }, []);
+
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -41,11 +71,52 @@ const ContactSection = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // EmailJS implementation
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Here you would typically send the data to your backend
-    alert("Thank you for your message! We'll get back to you within 24 hours.");
+    setIsLoading(true);
+    setSubmitStatus(null);
+
+    try {
+      // Wait for EmailJS to be loaded if it's not ready yet
+      if (!window.emailjs) {
+        throw new Error("EmailJS not loaded yet. Please try again.");
+      }
+
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        company: formData.company || "Not provided",
+        project_type: formData.project || "Not provided",
+        budget: formData.budget || "Not provided",
+        message: formData.message,
+      };
+
+      const response = await window.emailjs.send(
+        serviceId, // Replace with your actual EmailJS service ID
+        templateId, // Replace with your actual EmailJS template ID
+        templateParams
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus("success");
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          project: "",
+          budget: "",
+          message: "",
+        });
+      } else {
+        throw new Error("Failed to send email");
+      }
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -87,7 +158,25 @@ const ContactSection = () => {
                 Send Us a Message
               </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Status Messages */}
+              {submitStatus === "success" && (
+                <div className="mb-6 p-4 bg-emerald/10 border border-emerald/20 rounded-lg">
+                  <p className="text-emerald text-sm">
+                    ✅ Message sent successfully! We'll get back to you soon.
+                  </p>
+                </div>
+              )}
+
+              {submitStatus === "error" && (
+                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+                  <p className="text-red-400 text-sm">
+                    ❌ Failed to send message. Please try again or contact us
+                    directly.
+                  </p>
+                </div>
+              )}
+
+              <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label
@@ -157,10 +246,11 @@ const ContactSection = () => {
                       onChange={handleInputChange}
                       className="w-full bg-navy/50 border border-gold/30 rounded-lg px-4 py-3 text-cream focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300">
                       <option value="">Select budget range</option>
-                      <option value="5k-10k">$5,000 - $10,000</option>
-                      <option value="10k-25k">$10,000 - $25,000</option>
-                      <option value="25k-50k">$25,000 - $50,000</option>
-                      <option value="50k+">$50,000+</option>
+                      <option value="$50 - $100">$50 - $100</option>
+                      <option value="$100 - $250">$100 - $250</option>
+                      <option value="$250 - $500">$250 - $500</option>
+                      <option value="$500 - $1000">$500 - $1000</option>
+                      <option value="$1000+">$1000+</option>
                     </select>
                   </div>
                 </div>
@@ -179,6 +269,7 @@ const ContactSection = () => {
                     className="w-full bg-navy/50 border border-gold/30 rounded-lg px-4 py-3 text-cream focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300">
                     <option value="">Select project type</option>
                     <option value="web-development">Web Development</option>
+                    <option value="web-development">Website Design</option>
                     <option value="mobile-app">Mobile App Development</option>
                     <option value="ui-ux-design">UI/UX Design</option>
                     <option value="ai-automation">AI & Automation</option>
@@ -208,11 +299,22 @@ const ContactSection = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-gold text-charcoal px-8 py-4 rounded-lg font-semibold text-sm sm:text-base md:text-lg hover:shadow-xl hover:shadow-gold/30 transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2">
-                  <Send size={20} />
-                  <span>Send Message</span>
+                  disabled={isLoading}
+                  onClick={handleSubmit}
+                  className="w-full bg-gradient-gold text-charcoal px-8 py-4 rounded-lg font-semibold text-sm sm:text-base md:text-lg hover:shadow-xl hover:shadow-gold/30 transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                  {isLoading ? (
+                    <>
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-charcoal"></div>
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={20} />
+                      <span>Send Message</span>
+                    </>
+                  )}
                 </button>
-              </form>
+              </div>
             </div>
           </div>
 
@@ -234,10 +336,10 @@ const ContactSection = () => {
                         Email Us
                       </h4>
                       <p className="text-cream/70 font-inter text-xs sm:text-sm md:text-base">
-                        hello@Klyro.agency
+                        service@klyro.digital
                       </p>
                       <p className="text-cream/70 font-inter text-xs sm:text-sm md:text-base">
-                        projects@Klyro.agency
+                        klyrodigital@gmail.com
                       </p>
                     </div>
                   </div>
@@ -253,7 +355,7 @@ const ContactSection = () => {
                         Call Us
                       </h4>
                       <p className="text-cream/70 font-inter text-xs sm:text-sm md:text-base">
-                        +1 (555) 123-4567
+                        +918957089392
                       </p>
                       <p className="text-cream/60 font-inter text-xs sm:text-sm md:text-base">
                         Mon-Fri, 9 AM - 6 PM EST
@@ -272,10 +374,10 @@ const ContactSection = () => {
                         Visit Us
                       </h4>
                       <p className="text-cream/70 font-inter text-xs sm:text-sm md:text-base">
-                        123 Innovation Street
+                        Bengaluru, Karnataka
                       </p>
                       <p className="text-cream/70 font-inter text-xs sm:text-sm md:text-base">
-                        Tech District, NY 10001
+                        560102, INDIA
                       </p>
                     </div>
                   </div>
@@ -316,24 +418,24 @@ const ContactSection = () => {
                 </h4>
                 <div className="flex space-x-4">
                   <a
-                    href="#"
-                    className="bg-navy/50 p-3 rounded-full hover:bg-gold hover:text-charcoal transition-all duration-300 text-cream">
-                    <span className="font-inter text-xs sm:text-sm md:text-base">
-                      LinkedIn
+                    href="https://linkedin.com/company/klyro-digital"
+                    className=" p-3 rounded-full bg-gold transition-all duration-300 text-cream">
+                    <span className="font-inter text-xs sm:text-sm md:text-base ">
+                      <Linkedin className="text-charcoal w-6 h-6" />
                     </span>
                   </a>
                   <a
-                    href="#"
-                    className="bg-navy/50 p-3 rounded-full hover:bg-gold hover:text-charcoal transition-all duration-300 text-cream">
+                    href="https://x.com/klyrodigital"
+                    className=" p-3 rounded-full bg-gold  transition-all duration-300 text-cream">
                     <span className="font-inter text-xs sm:text-sm md:text-base">
-                      Twitter
+                      <Twitter className="text-charcoal w-6 h-6" />
                     </span>
                   </a>
                   <a
-                    href="#"
-                    className="bg-navy/50 p-3 rounded-full hover:bg-gold hover:text-charcoal transition-all duration-300 text-cream">
+                    href="https://www.instagram.com/klyro.digital?igsh=aDB4azh4dTZsYnB4"
+                    className=" p-3 rounded-full bg-gold ho transition-all duration-300 text-cream">
                     <span className="font-inter text-xs sm:text-sm md:text-base">
-                      Instagram
+                      <Instagram className="text-charcoal w-6 h-6" />
                     </span>
                   </a>
                 </div>

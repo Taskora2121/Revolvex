@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Linkedin, Twitter, Instagram } from "lucide-react";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -64,30 +64,23 @@ const Footer = () => {
               <div className="flex space-x-4">
                 <a
                   href="#"
-                  className="bg-navy/50 p-3 rounded-full hover:bg-gradient-gold hover:text-charcoal transition-all duration-300 text-cream group">
+                  className=" p-3 rounded-full bg-gold  transition-all duration-300 text-cream group">
                   <span className="font-inter text-xs sm:text-sm md:text-base group-hover:font-semibold">
-                    LI
+                    <Linkedin className="text-charcoal w-6 h-6" />
                   </span>
                 </a>
                 <a
                   href="#"
-                  className="bg-navy/50 p-3 rounded-full hover:bg-gradient-gold hover:text-charcoal transition-all duration-300 text-cream group">
+                  className=" p-3 rounded-full bg-gold  transition-all duration-300 text-cream group">
                   <span className="font-inter text-xs sm:text-sm md:text-base group-hover:font-semibold">
-                    TW
+                    <Twitter className="text-charcoal w-6 h-6" />
                   </span>
                 </a>
                 <a
                   href="#"
-                  className="bg-navy/50 p-3 rounded-full hover:bg-gradient-gold hover:text-charcoal transition-all duration-300 text-cream group">
+                  className=" p-3 rounded-full bg-gold  transition-all duration-300 text-cream group">
                   <span className="font-inter text-xs sm:text-sm md:text-base group-hover:font-semibold">
-                    IG
-                  </span>
-                </a>
-                <a
-                  href="#"
-                  className="bg-navy/50 p-3 rounded-full hover:bg-gradient-gold hover:text-charcoal transition-all duration-300 text-cream group">
-                  <span className="font-inter text-xs sm:text-sm md:text-base group-hover:font-semibold">
-                    GH
+                    <Instagram className="text-charcoal w-6 h-6" />
                   </span>
                 </a>
               </div>
@@ -112,31 +105,6 @@ const Footer = () => {
                 </ul>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* Newsletter Section */}
-        <div className="py-12 border-b border-gold/20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <h4 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold text-cream mb-2">
-                Stay Updated
-              </h4>
-              <p className="text-sm sm:text-base md:text-lg text-cream/70 font-inter">
-                Get the latest insights on digital trends, tech innovations, and
-                exclusive offers.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 bg-navy/50 border border-gold/30 rounded-lg px-4 py-3 text-sm sm:text-base md:text-base text-cream placeholder-cream/50 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300"
-              />
-              <button className="bg-white text-sm sm:text-base md:text-lg text-gray-900 font-semibold px-4 py-2 rounded-md hover:bg-gray-300 transition-colors duration-300">
-                Subscribe
-              </button>
-            </div>
           </div>
         </div>
 
